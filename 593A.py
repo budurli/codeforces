@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 from collections import Counter, defaultdict
+from itertools import combinations
 
 n = int(raw_input())
 
-words = []
-count = Counter()
 counter_dict = defaultdict(int)
 
 for i in xrange(n):
@@ -22,5 +21,24 @@ for i in xrange(n):
         counter_dict[key] += counter_dict_update[0][1] \
                              + counter_dict_update[1][1]
 
-print dict(counter_dict)
+result = []
 
+one_letter_keys = filter(lambda x: len(x) == 1, counter_dict.keys())
+for letter_1, letter_2 in (combinations(one_letter_keys, 2)):
+    result.append(
+        counter_dict[letter_1]+counter_dict[letter_2]
+    )
+
+for key in counter_dict.keys():
+    if len(key) == 1:
+        result.append(counter_dict[key])
+
+    if len(key) == 3:
+        result.append(
+            counter_dict[key] + counter_dict[key[0]] + counter_dict[key[-1]]
+        )
+
+if result:
+    print(max(result))
+else:
+    print(0)
