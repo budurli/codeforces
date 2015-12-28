@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
+import  math
 k, a, b = map(int, raw_input().split(' '))
-result = 0
-# print((b - a) / k + 1)
-print((b - (a + (a % k)))/ k +1)
+interval = b - a + 1
+
+div = interval / float(k)
+
+if a % k == 0:
+    print(int(math.ceil(div)))
+else:
+    print(int(div))
