@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 n, k = map(int, raw_input().split(' '))
 a = map(int, raw_input().split(' '))
+a = enumerate(a, 1)
 result = 0
-i = 0
 
-for a_i in sorted(a):
-    if result > k:
-        print(i)
-        break
-    i += 1
+instrs = []
+
+for i, a_i in sorted(a, key=lambda x: x[1]):
     result += a_i
-else:
-    print(0)
+    if result > k:
+        break
+    else:
+        instrs.append(i)
+
+print(len(instrs))
+if len(instrs):
+    print(' '.join(map(str, instrs)))
