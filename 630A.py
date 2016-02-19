@@ -1,0 +1,4 @@
+# -*- coding: utf-8 -*-
+n = int(raw_input())
+
+print(25)
