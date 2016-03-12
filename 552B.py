@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
-n = int(raw_input())
+n = raw_input()
 
+multiplier = len(n)
 
+for i in n:
+    print(int(i) * multiplier)
+    multiplier -= 1
