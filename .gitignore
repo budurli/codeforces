@@ -157,3 +157,7 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# hack
+*
+!*.*
