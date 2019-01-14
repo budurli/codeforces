@@ -1,55 +1,49 @@
 # -*- coding: utf-8 -*-
 
-start = raw_input()
-end = raw_input()
+start = raw_input().lower()
+end = raw_input().lower()
 
-letters_map = {
-    'a': 1,
-    'b': 2,
-    'c': 3,
-    'd': 4,
-    'e': 5,
-    'f': 6,
-    'g': 7,
-    'h': 8
-}
+sx, sy = ord(start[0]) - ord('a') + 1, int(start[1])
+dx, dy = ord(end[0]) - ord('a') + 1, int(end[1])
 
-start_position = (letters_map[start[0]], int(start[1]))
-end_position = (letters_map[end[0]], int(end[1]))
+n = 0
+steps = []
 
-x_moves = abs(start_position[0] - end_position[0])
-y_moves = abs(start_position[1] - end_position[1])
+while (sx, sy) != (dx, dy):
+    n += 1
+    if sx > dx:
+        if sy > dy:
+            steps.append('LD')
+            sx -= 1
+            sy -= 1
+        elif sy == dy:
+            steps.append('L')
+            sx -= 1
+        elif sy < dy:
+            steps.append('LU')
+            sx -= 1
+            sy += 1
 
-diag_moves = min(x_moves, y_moves)
+    elif sx == dx:
+        if sy > dy:
+            steps.append('D')
+            sy -= 1
+        elif sy < dy:
+            steps.append('U')
+            sy += 1
 
-additional_moves = min(diag_moves - x_moves, diag_moves - y_moves)
-result_moves = diag_moves + additional_moves
+    elif sx < dx:
+        if sy > dy:
+            steps.append('RD')
+            sx += 1
+            sy -= 1
+        elif sy == dy:
+            steps.append('R')
+            sx += 1
+        elif sy < dy:
+            steps.append('RU')
+            sx += 1
+            sy += 1
 
-print(diag_moves + additional_moves)
-
-current_position = start_position
-
-for i in xrange(result_moves):
-    offset = (
-        end_position[0] - current_position[0],
-        end_position[1] - current_position[1]
-    )
-
-    if offset[0] > 0 and offset[1] > 0:
-        current_position = (
-            current_position[0]+1,
-            current_position[1]+1
-        )
-        print('RU')
-    elif offset[0] > 0 and offset[1] == 0:
-        current_position = (
-            current_position[0]+1,
-            current_position[1]
-        )
-        print('R')
-    elif offset[0] == 0 and offset[1] > 0:
-        current_position = (
-            current_position[0],
-            current_position[1]+1
-        )
-        print('U')
+print(n)
+print('\n'.join(steps))

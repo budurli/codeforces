@@ -1,15 +1,32 @@
 # -*- coding: utf-8 -*-
-from collections import defaultdict
 
 n = int(raw_input())
-score = defaultdict(int)
-max_score = 0
 winner = None
+
+steps = []
+
+score = {}
+max_individual_score = {}
+final_score = {}
+
 for i in xrange(n):
     name, points = raw_input().split(' ')
-    score[name] += int(points)
-    if score[name] > max_score:
-        max_score = score[name]
-        winner = name
+    steps.append((name, int(points)))
 
-print(winner)
+    if name not in score.keys():
+        score[name] = int(points)
+        max_individual_score[name] = int(points)
+    else:
+        score[name] += int(points)
+
+    if score[name] > max_individual_score[name]:
+        max_individual_score[name] = score[name]
+
+max_score = max(score.values())
+
+for name, points in steps:
+    final_score[name] = final_score.get(name, 0) + points
+
+    if final_score[name] >= max_score and score[name] == max_score:
+        print(name)
+        break
